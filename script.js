@@ -1,27 +1,27 @@
 
 const country_code = [
-    { value: "AR", label: "ARG" },
-    { value: "BO", label: "BOL" },
-    { value: "BR", label: "BRA" },
-    { value: "CL", label: "CHL" },
-    { value: "CO", label: "COL" },
-    { value: "EC", label: "ECU" },
-    { value: "GY", label: "GUY" },
-    { value: "PY", label: "PRY" },
-    { value: "PE", label: "PER" },
+    { value: "AR", label: "ARS" },
+    { value: "BO", label: "BOB" },
+    { value: "BR", label: "BRL" },
+    { value: "CL", label: "CLP" },
+    { value: "CO", label: "COP" },
+    { value: "EC", label: "USD" },
+    { value: "GY", label: "GYD" },
+    { value: "PY", label: "PYG" },
+    { value: "PE", label: "PEN" },
     { value: "SR", label: "SUR" },
-    { value: "UY", label: "URY" },
-    { value: "VE", label: "VEN" },
-    { value: "US", label: "USA" },
-    { value: "SV", label: "SLV" },
-    { value: "PA", label: "PAN" },
-    { value: "DE", label: "DEU" },
-    { value: "FR", label: "FRA" },
-    { value: "ES", label: "ESP" },
-    { value: "IT", label: "ITA" },
-    { value: "PT", label: "PRT" },
-    { value: "IE", label: "IRL" },
-    { value: "AT", label: "AUT" },
+    { value: "UY", label: "UYU" },
+    { value: "VE", label: "VEB" },
+    { value: "US", label: "USD" },
+    { value: "SV", label: "USD" },
+    { value: "PA", label: "PAB" },
+    { value: "DE", label: "EUR" },
+    { value: "FR", label: "EUR" },
+    { value: "ES", label: "EUR" },
+    { value: "IT", label: "EUR" },
+    { value: "PT", label: "EUR" },
+    { value: "IE", label: "EUR" },
+    { value: "AT", label: "EUR" },//FIZ ATE AQUI
     { value: "GR", label: "GRC" },
     { value: "BE", label: "BEL" },
     { value: "FI", label: "FIN" },
@@ -97,7 +97,9 @@ async function pegarTaxaConversao (moedaDe, moedaPara) {
     const request = new Request(url) ;
     let taxaConversao;
     const result = await fetch(request)
+    console.log(result);
     dados = await result.json()
+    console.log(dados);
     taxaConversao = dados[moedasJson].ask;
     
 
@@ -126,7 +128,7 @@ function pegarCodigoDaMoeda(SiglaPais){
 
 
 
-console.log(pegarTaxaConversao("USD", "BR"));
+console.log(pegarTaxaConversao("USD", "BRL"));
 
 
 

@@ -21,25 +21,25 @@ const country_code = [
     { value: "IT", label: "EUR" },
     { value: "PT", label: "EUR" },
     { value: "IE", label: "EUR" },
-    { value: "AT", label: "EUR" },//FIZ ATE AQUI
-    { value: "GR", label: "GRC" },
-    { value: "BE", label: "BEL" },
-    { value: "FI", label: "FIN" },
-    { value: "JP", label: "JPN" },
-    { value: "GB", label: "GBR" },
-    { value: "FK", label: "FLK" },
-    { value: "GI", label: "GIB" },
-    { value: "AU", label: "AUS" },
-    { value: "KI", label: "KIR" },
-    { value: "NR", label: "NRU" },
-    { value: "CA", label: "CAN" },
-    { value: "CH", label: "CHE" },
-    { value: "LI", label: "LIE" },
-    { value: "CN", label: "CHN" },
-    { value: "NZ", label: "NZL" },
-    { value: "CK", label: "COK" },
-    { value: "NU", label: "NIU" },
-    { value: "HK", label: "HKG" }
+    { value: "AT", label: "EUR" },
+    { value: "GR", label: "EUR" },
+    { value: "BE", label: "EUR" },
+    { value: "FI", label: "EUR" },
+    { value: "JP", label: "JPY" },
+    { value: "GB", label: "GBP" },
+    { value: "FK", label: "GBP" },// FALKLAND ISLAND
+    { value: "GI", label: "GIP" },
+    { value: "AU", label: "AUD" },
+    { value: "KI", label: "AUD" },
+    { value: "NR", label: "AUD" },
+    { value: "CA", label: "CAD" },
+    { value: "CH", label: "CHF" },
+    { value: "LI", label: "CHF" }, //PAIS SUPER ESTRANHO
+    { value: "CN", label: "RMB" },
+    { value: "NZ", label: "NZD" },
+    { value: "CK", label: "NZD" },
+    { value: "NU", label: "NZD" },
+    { value: "HK", label: "HKD" }
 ];
 
 
@@ -55,25 +55,42 @@ let img2 = document.querySelector("#imagem2");
 
 let botaoTrocar = document.querySelector(".botton-swap");
 let botaoConversao = document.querySelector(".button");
-let moedaDe = pegarCodigoDaMoeda(select.value);
-let moedaPara = pegarCodigoDaMoeda(select.value);
+let moedaDe;
+let moedaPara;
 taxaConversão = null;
 
 
-select.addEventListener("change", ()=> {
+select.addEventListener("change", async ()=> {
     img.src = `https://flagsapi.com/${select.value}/flat/64.png`;
-    moedaDe = pegarCodigoDaMoeda(select.value);
-    taxaConversao = pegarTaxaConversao(moedaDe, moedaPara)
+    for (let i = 0; i<country_code.length; i++){
+        if (country_code[i].value === select.value){
+            moedaDe = country_code[i].label;
+            break;
+        }
+    }
+    if (moedaDe !== undefined && moedaPara !== undefined&& moedaDe!= moedaPara){
+        taxaConversao = await pegarTaxaConversao(moedaDe, moedaPara);
+        console.log(taxaConversao);
+    }
 
     
 
 
 });
-select2.addEventListener("change", ()=> {
+select2.addEventListener("change", async ()=> {
     img2.src = `https://flagsapi.com/${select2.value}/flat/64.png`;
-    moedaPara = pegarCodigoDaMoeda(select.value);
+    for (let i = 0; i<country_code.length; i++){
+        if (country_code[i].value === select.value){
+            moedaPara = country_code[i].label;
+            break;
+        }
+    }
 
-
+    if (moedaDe !== undefined && moedaPara !== undefined&& moedaDe!= moedaPara){
+        taxaConversao = await pegarTaxaConversao(moedaDe, moedaPara);
+        console.log(taxaConversao);
+    }
+    
 });
 
 
@@ -110,9 +127,7 @@ async function pegarTaxaConversao (moedaDe, moedaPara) {
 
 
 
-for (let i = 0; i<country_code.length; i++){
-    console.log(country_code[i].value);
-}
+
 
 
 function pegarCodigoDaMoeda(SiglaPais){
@@ -128,12 +143,11 @@ function pegarCodigoDaMoeda(SiglaPais){
 
 
 
-console.log(pegarTaxaConversao("USD", "BRL"));
 
 
 
-//desafio: fazer com que, com base na sigla do pais que está escolhido, eu obtenha o codigo de moeda dele
-//para isso acho que tenho que criar um grande objeto
+
+
 
 
 

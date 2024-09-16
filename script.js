@@ -50,9 +50,9 @@ let opcoes = document.querySelectorAll(".opcao");
 let select = document.querySelector("#select-pais");
 let select2 = document.querySelector("#select-ps");
 let img = document.querySelector("#imagem1");
-
+img.src = `https://flagsapi.com/${select.value}/flat/64.png`;
 let img2 = document.querySelector("#imagem2");
-
+img2.src = `https://flagsapi.com/${select2.value}/flat/64.png`;
 let botaoTrocar = document.querySelector(".botton-swap");
 let botaoConversao = document.querySelector(".state-layer");
 let moedaDe;
@@ -100,6 +100,11 @@ botaoTrocar.addEventListener("click", ()=>{
     let imgTemp = img.src;
     img.src = img2.src;
     img2.src = imgTemp;
+    //let moedaTemp = moedaPara;
+    //moedaPara = moedaDe;
+    //console.log(moedaDe);
+    //moedaDe = moedaTemp;
+    //console.log(moedaPara);
 })
 
 
@@ -143,17 +148,6 @@ function pegarCodigoDaMoeda(SiglaPais){
 
 
 
-botaoConversao.addEventListener("click", ()=>{
-    console.log("click!");
-    if(moedaDe!== undefined && moedaPara!== undefined && moedaDe!==moedaPara){
-       pegarTaxaConversao(moedaDe, moedaPara)();
-
-    }
-    if(input.value!== ""){
-        output.text = input*taxaConversao;
-    }
-
-})
 
 
 
@@ -168,7 +162,16 @@ function botao(){
         console.log(input.value*taxaConversao);
 
     }
+ 
 }
+
+
+
+
+
+
+
+
 
 
 

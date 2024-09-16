@@ -54,10 +54,12 @@ let img = document.querySelector("#imagem1");
 let img2 = document.querySelector("#imagem2");
 
 let botaoTrocar = document.querySelector(".botton-swap");
-let botaoConversao = document.querySelector(".button");
+let botaoConversao = document.querySelector(".state-layer");
 let moedaDe;
 let moedaPara;
-taxaConversão = null;
+let taxaConversao = null;
+let input = document.querySelector("#input");
+let output = document.querySelector("#output");
 
 
 select.addEventListener("change", async ()=> {
@@ -65,13 +67,11 @@ select.addEventListener("change", async ()=> {
     for (let i = 0; i<country_code.length; i++){
         if (country_code[i].value === select.value){
             moedaDe = country_code[i].label;
+            console.log(moedaDe);
             break;
         }
     }
-    if (moedaDe !== undefined && moedaPara !== undefined&& moedaDe!= moedaPara){
-        taxaConversao = await pegarTaxaConversao(moedaDe, moedaPara);
-        console.log(taxaConversao);
-    }
+    
 
     
 
@@ -80,16 +80,14 @@ select.addEventListener("change", async ()=> {
 select2.addEventListener("change", async ()=> {
     img2.src = `https://flagsapi.com/${select2.value}/flat/64.png`;
     for (let i = 0; i<country_code.length; i++){
-        if (country_code[i].value === select.value){
+        if (country_code[i].value === select2.value){
             moedaPara = country_code[i].label;
+            console.log(moedaPara);
             break;
         }
     }
 
-    if (moedaDe !== undefined && moedaPara !== undefined&& moedaDe!= moedaPara){
-        taxaConversao = await pegarTaxaConversao(moedaDe, moedaPara);
-        console.log(taxaConversao);
-    }
+    
     
 });
 
@@ -108,20 +106,20 @@ botaoTrocar.addEventListener("click", ()=>{
 async function pegarTaxaConversao (moedaDe, moedaPara) {
     let moedasRequest = moedaDe+"-"+moedaPara;
     let url = "https://economia.awesomeapi.com.br/last/"+moedasRequest;
-    console.log(url);
     let moedasJson = moedaDe+moedaPara;
-    console.log(moedasJson);
     const request = new Request(url) ;
-    let taxaConversao;
-    const result = await fetch(request)
-    console.log(result);
-    dados = await result.json()
-    console.log(dados);
-    taxaConversao = dados[moedasJson].ask;
     
-
+    const result = await fetch(request)
+    dados = await result.json()
+    taxaConversao = await dados[moedasJson].ask;
+    console.log(taxaConversao)
     return taxaConversao;
+
 }
+
+pegarTaxaConversao("USD","BRL")
+
+console.log(pegarTaxaConversao("USD","BRL")())//chama a funcao dps retorna o valor
 
 
 
@@ -145,11 +143,32 @@ function pegarCodigoDaMoeda(SiglaPais){
 
 
 
+botaoConversao.addEventListener("click", ()=>{
+    console.log("click!");
+    if(moedaDe!== undefined && moedaPara!== undefined && moedaDe!==moedaPara){
+       pegarTaxaConversao(moedaDe, moedaPara)();
+
+    }
+    if(input.value!== ""){
+        output.text = input*taxaConversao;
+    }
+
+})
 
 
 
+function botao(){
+    console.log("click!");
+    if(moedaDe!== undefined && moedaPara!== undefined && moedaDe!==moedaPara){
+       pegarTaxaConversao(moedaDe, moedaPara)();
 
+    }
+    if(input.value!== ""){
+        output.textContent = input.value*taxaConversao;
+        console.log(input.value*taxaConversao);
 
+    }
+}
 
 
 

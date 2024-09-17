@@ -109,6 +109,7 @@ botaoTrocar.addEventListener("click", ()=>{
 
 
 async function pegarTaxaConversao (moedaDe, moedaPara) {
+    
     let moedasRequest = moedaDe+"-"+moedaPara;
     let url = "https://economia.awesomeapi.com.br/last/"+moedasRequest;
     let moedasJson = moedaDe+moedaPara;
